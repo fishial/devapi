@@ -1,0 +1,302 @@
+== AI Feedback Guide
+
+A brief guide to the API usage for AI feedback.
+
+== Components and key fields
+
+.Fish image
+----
+Representation of an image stored in Fishial collection.
+
+Can have multiple feedbacks attached.
+
+id
+ai_feedbacks
+----
+
+.AI feedback
+----
+A record holding information about parameters passed in the request to the AI as well as response received.
+
+It is created every time we are requesting recognition from the AI and attached to the image if it's present in collection.
+
+fish_image_id
+ai_request_parameters
+ai_response
+ai_feedback_entries
+----
+
+.AI feedback entry
+----
+User input regarding the response from the AI.
+
+ai_feedback_id (not null)
+feedback_type (default: Unknown)
+status (default: Pending)
+suggested_name
+ip
+api_key
+user_id (not null)
+----
+
+== Structure
+
+.AI feedback
+----
+belongs to fish image (optional)
+has many ai feedback entries
+----
+
+== API endpoints
+
+IMPORTANT: All requests to API feedback endpoints should have *Content-Type application/vnd.api+json* header
+
+[cols="1,1,1"]
+|===
+| Request method | Endpoint | Description
+
+| GET
+| /v1/ai-feedbacks
+| List all AI feedbacks in the system
+
+| GET
+| /v1/ai-feedbacks/:id
+| Show details of AI feedback with specified :id
+
+| GET
+| /v1/ai-feedbacks/:id/entries
+| List all entries for AI feedback with specified :id
+
+| POST
+| /v1/ai-feedbacks/:id/entries
+| Add new entry to AI feedback with specified :id
+
+| GET
+| /v1/ai-feedbacks/:id/entries/:entry_id
+| Show details of entry with :entry_id for AI feedback with specified :id
+
+| PUT
+| /v1/ai-feedbacks/:id/entries/:entry_id
+| Update entry with :entry_id for AI feedback with specified :id
+|===
+
+== Basic flow
+
+* Make a usual request to `/v1/recognition/image`
+
+.Sample response:
+----
+{
+  "feedback-id":1,
+  "results":[
+    {
+      "shape":{
+        "x0":0,
+        "y0":0,
+        "x1":50,
+        "y1":0,
+        "x2":5,
+        "y2":100
+      },
+      "species":[
+        {
+          "name":"Clupea harengus",
+          "accuracy":0.95,
+          "fishangler-id":"4ccada1b-6c50-4ee7-bf4f-b80fd58f8fbb",
+          "fishangler-data":{
+            "id":"4ccada1b-6c50-4ee7-bf4f-b80fd58f8fbb",
+            "title":"Atlantic herring"
+          }
+        },
+        {
+          "name":"Gadus morhua",
+          "accuracy":0.7,
+          "fishangler-id":"9046fbda-c0ae-4381-b8b1-973b75ed72bb",
+          "fishangler-data":{
+            "id":"9046fbda-c0ae-4381-b8b1-973b75ed72bb",
+            "title":"Atlantic cod"
+          }
+        },
+        {
+          "name":"Scomber scombrus",
+          "accuracy":0.45,
+          "fishangler-id":"1d0b7918-6e6e-4d0c-bafc-97df52c7f06c",
+          "fishangler-data":{
+            "id":"1d0b7918-6e6e-4d0c-bafc-97df52c7f06c",
+            "title":"Atlantic mackerel"
+          }
+        }
+      ]
+    }
+  ]
+}
+----
+* Use the `feedback-id` attribute from previous request to 
+- fetch details of AI feedback at `/v1/ai-feedbacks/{feedback-id}`
+
+.Sample response:
+----
+{
+  "data":{
+    "id":"1",
+    "type":"ai_feedback",
+    "attributes":{
+      "fish-image-id":1,
+      "ai-request-parameters":{
+        "imageURL":"http://img.test/0",
+        "approximate":0.0015,
+        "face-threshold":0.7,
+        "fish-threshold":0.9
+      },
+      "ai-response":{
+        "results":[
+          {
+            "shape":{
+              "x0":0,
+              "x1":50,
+              "x2":5,
+              "y0":0,
+              "y1":0,
+              "y2":100
+            },
+            "species":[
+              {
+                "name":"Clupea harengus",
+                "accuracy":0.95
+              },
+              {
+                "name":"Gadus morhua",
+                "accuracy":0.7
+              },
+              {
+                "name":"Scomber scombrus",
+                "accuracy":0.45
+              }
+            ]
+          }
+        ]
+      },
+      "created-at":"2022-06-24T19:07:54.628Z",
+      "updated-at":"2022-06-24T19:07:54.628Z",
+      "ai-feedback-entries":[
+        
+      ]
+    }
+  },
+  "meta":{
+    "page-count":null,
+    "record-count":null
+  },
+  "links":{
+    "self":"http://www.example.com/v1/ai-feedbacks/1"
+  }
+}
+----
+- or add new entry to the AI feedback (available feedback types: *Agree*, *Disagree*, *Unknown*)
+
+.Sample request:
+----
+{
+  "data":{
+    "type": "ai-feedback-entries",
+    "attributes": {
+      "suggested-name": "Tuna",
+      "polygon-id": "1",
+      "feedback-type": "Disagree"
+    }
+  }
+}
+----
+
+.Sample response:
+----
+{
+  "data":{
+    "id":"1",
+    "type":"ai_feedback_entry",
+    "attributes":{
+      "user-id":1,
+      "feedback-type":"Disagree",
+      "suggested-name":"Tuna",
+      "polygon-id":"1",
+      "status":"Pending",
+      "ip":"127.0.0.1",
+      "api-key":null,
+      "created-at":"2022-06-24T19:10:28.499Z",
+      "updated-at":"2022-06-24T19:10:28.499Z"
+    },
+    "relationships":{
+      "ai-feedback":{
+        "data":{
+          "id":"1",
+          "type":"ai_feedback"
+        }
+      }
+    }
+  },
+  "meta":{
+    "page-count":null,
+    "record-count":null
+  },
+  "links":{
+    "self":"http://www.example.com/v1/ai-feedbacks/1/entries"
+  }
+}
+----
+* to comment on the user feedback entry you can then make the request to `/v1/ai-feedbacks/{feedback-id}/entries/{entry-id}` and set the status. Available statuses: *Pending*, *Rejected*, *Verified*
+.Sample request:
+----
+{
+  "data": {
+    "type": "ai-feedback-entries",
+    "id": 1,
+    "attributes": {
+      "status": "Verified"
+    }
+  }
+}
+----
+
+.Sample response:
+----
+{
+  "data":{
+    "id":"1",
+    "type":"ai_feedback_entry",
+    "attributes":{
+      "user-id":1,
+      "feedback-type":"Disagree",
+      "suggested-name":"Tuna",
+      "polygon-id":"2",
+      "status":"Verified",
+      "ip":null,
+      "api-key":null,
+      "created-at":"2022-06-24T19:36:50.533Z",
+      "updated-at":"2022-06-24T19:36:50.541Z"
+    },
+    "relationships":{
+      "ai-feedback":{
+        "data":{
+          "id":"1",
+          "type":"ai_feedback"
+        }
+      }
+    }
+  },
+  "meta":{
+    "page-count":null,
+    "record-count":null
+  },
+  "links":{
+    "self":"http://www.example.com/v1/ai-feedbacks/1/entries/1"
+  }
+}
+----
+
+== Searching and filtering
+
+You can use various filters on the `/v1/ai-feedbacks` endpoint.
+
+. `/v1/ai-feedbacks?filter[fish_image_id_eq]=:id` - list all recognition results for fish image with specified :id
+. `/v1/ai-feedbacks?filter[ai_feedback_entries_feedback_type_eq]=:type` - list all recognition results that have entries of :type (Agree, Disagree, Unknown)
+. `/v1/ai-feedbacks?filter[ai_feedback_entries_status_eq]=:status` - list all recognition results that have entires with :status (Verified, Rejected, Pending)
