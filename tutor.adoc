@@ -123,7 +123,7 @@ header in subsequent API calls.
 ----
 {
   "token_type": "Bearer",
-  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTUyMjc1MTcsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.mW307Uck5x4mFMyuBY8xmwU4cKuTrum-5_kerod1WLQ"
+  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTY2MTkzNzQsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.SwJITJXPcGXu9E6UYPNXq0kTfPRZ_O-qe3FGV7ZTxZM"
 }
 ----
 
@@ -142,7 +142,7 @@ The signed URL won't allow a file that doesn't match that metadata.
 curl --request POST \
   --url https://api.fishial.ai/v1/recognition/upload \
   --header 'Accept: application/json' \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTUyMjc1MTcsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.mW307Uck5x4mFMyuBY8xmwU4cKuTrum-5_kerod1WLQ' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTY2MTkzNzQsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.SwJITJXPcGXu9E6UYPNXq0kTfPRZ_O-qe3FGV7ZTxZM' \
   --header 'Content-Type: application/json' \
   --data '{
     "blob": {
@@ -159,19 +159,19 @@ The response is quite lengthy and looks like this:
 [lang,json]
 ----
 {
-  "id": 1160840,
-  "key": "2abacoff5hu8toyk1qfuj766a62j",
+  "id": 1399956,
+  "key": "hpleg1o4wez3e7mvy1sivhep9dw6",
   "filename": "fishpic.jpg",
   "content-type": "image/jpeg",
   "metadata": {},
   "byte-size": 2204455,
   "checksum": "EA5w4bPQDfzBgEbes8ZmuQ==",
-  "created-at": "2022-06-14T17:15:24.735Z",
+  "created-at": "2022-06-30T19:53:07.695Z",
   "service-name": "google",
-  "signed-id": "eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGkyRVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--315f7b38584a837d83765664bed60a003f80aed0",
-  "attachable-sgid": "BAh7CEkiCGdpZAY6BkVUSSJPZ2lkOi8vZmlzaGlhbC1wb3J0YWwtYmFja2VuZC1maXNoZXMvQWN0aXZlU3RvcmFnZTo6QmxvYi8xMTYwODQwP2V4cGlyZXNfaW4GOwBUSSIMcHVycG9zZQY7AFRJIg9hdHRhY2hhYmxlBjsAVEkiD2V4cGlyZXNfYXQGOwBUMA==--09ae68f054fa5127f0da03f1461c5180006f56cb",
+  "signed-id": "eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNVJjRlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--269b0ee106c8739e2248645965ad0fc868b20c7c",
+  "attachable-sgid": "BAh7CEkiCGdpZAY6BkVUSSJPZ2lkOi8vZmlzaGlhbC1wb3J0YWwtYmFja2VuZC1maXNoZXMvQWN0aXZlU3RvcmFnZTo6QmxvYi8xMzk5OTU2P2V4cGlyZXNfaW4GOwBUSSIMcHVycG9zZQY7AFRJIg9hdHRhY2hhYmxlBjsAVEkiD2V4cGlyZXNfYXQGOwBUMA==--f33ed3bd1d50febd02cd1986655805c71b3699ea",
   "direct-upload": {
-    "url": "https://storage.googleapis.com/backend-fishes-storage-prod/2abacoff5hu8toyk1qfuj766a62j?GoogleAccessId=services-storage-client%40ecstatic-baton-230905.iam.gserviceaccount.com&Expires=1655227224&Signature=XFw9ni5mJmqs8WZlVJ40bsm2K746iFWTCJx9njE%2BHEK1twrGBkZUER%2F3wIzE%2FNwQyGYKDq2hRxj9YRxrU%2BoXMMHbTIlZoXEiQ%2BH9p6K%2FUVUJuLrpJbPYvoeCGGw%2FOi8tPDHlTMoQkN4RSiAF3mIpIvLufnN8LWEQO9Sd3wDVtpSEVyqfsH5%2Bauc20NnAwSBLHrSC%2FOhQjZFampfPXeKKy2X24xkA8n47HlF99bsk%2Fyko1MKPCFdJEhO8Q2i1K07%2FNH3O3NZy3NXOC1Xw%2FfqoxuwWg3fn1fDRPqulKC2glwqiY8JJ%2BvwK4vpuc55TnvQxqZcXCBLDKffopzRv7jN3EA%3D%3D",
+    "url": "https://storage.googleapis.com/backend-fishes-storage-prod/hpleg1o4wez3e7mvy1sivhep9dw6?GoogleAccessId=services-storage-client%40ecstatic-baton-230905.iam.gserviceaccount.com&Expires=1656619087&Signature=aMeN%2FVW4I6LDgLRUEW0jzJqeA89gRpjn0TBcGMEnal3RU1iGqe0uOraHainV5qUw6tRPEBRBJ6rMeu9x0AmX6OC3Q8cCCmBUMs4k1jCQOnnCNgkttpU7ov%2FeZ9WpPr47rTQSd5np7jCG3EWVEBhNeP25%2BTx5JlKQQ8UErP%2Bc46Lr%2Bj28wgLw%2BeeVjO4sVjEnLx3djoZD0Htei5XR0YQKVr%2FGDbS4iBOmjPsD5g4txKM6071zft%2BFK6U7I%2FfWjef2w4Nx%2BVvdATkNRpVEzbkAv1lBWMhfrOLy5koJfGepFk0BGQbTXNokhFCQYxzQuJBeC1xubKHzZSQLCVnTXt4EXA%3D%3D",
     "headers": {
       "Content-MD5": "EA5w4bPQDfzBgEbes8ZmuQ==",
       "Content-Disposition": "inline; filename=\"fishpic.jpg\"; filename*=UTF-8''fishpic.jpg"
@@ -180,7 +180,7 @@ The response is quite lengthy and looks like this:
 }
 ----
 
-Fortunately, only a few entries are important for us.
+However, only a few entries are important for us.
 
 `signed-id`::
   Will be used at the last step.
@@ -200,7 +200,7 @@ actually send an image to that URL.  Please note that the request method is
 [lang,sh]
 ----
 curl --request PUT \
-  --url 'https://storage.googleapis.com/backend-fishes-storage-prod/2abacoff5hu8toyk1qfuj766a62j?GoogleAccessId=services-storage-client%40ecstatic-baton-230905.iam.gserviceaccount.com&Expires=1655227224&Signature=XFw9ni5mJmqs8WZlVJ40bsm2K746iFWTCJx9njE%2BHEK1twrGBkZUER%2F3wIzE%2FNwQyGYKDq2hRxj9YRxrU%2BoXMMHbTIlZoXEiQ%2BH9p6K%2FUVUJuLrpJbPYvoeCGGw%2FOi8tPDHlTMoQkN4RSiAF3mIpIvLufnN8LWEQO9Sd3wDVtpSEVyqfsH5%2Bauc20NnAwSBLHrSC%2FOhQjZFampfPXeKKy2X24xkA8n47HlF99bsk%2Fyko1MKPCFdJEhO8Q2i1K07%2FNH3O3NZy3NXOC1Xw%2FfqoxuwWg3fn1fDRPqulKC2glwqiY8JJ%2BvwK4vpuc55TnvQxqZcXCBLDKffopzRv7jN3EA%3D%3D' \
+  --url 'https://storage.googleapis.com/backend-fishes-storage-prod/hpleg1o4wez3e7mvy1sivhep9dw6?GoogleAccessId=services-storage-client%40ecstatic-baton-230905.iam.gserviceaccount.com&Expires=1656619087&Signature=aMeN%2FVW4I6LDgLRUEW0jzJqeA89gRpjn0TBcGMEnal3RU1iGqe0uOraHainV5qUw6tRPEBRBJ6rMeu9x0AmX6OC3Q8cCCmBUMs4k1jCQOnnCNgkttpU7ov%2FeZ9WpPr47rTQSd5np7jCG3EWVEBhNeP25%2BTx5JlKQQ8UErP%2Bc46Lr%2Bj28wgLw%2BeeVjO4sVjEnLx3djoZD0Htei5XR0YQKVr%2FGDbS4iBOmjPsD5g4txKM6071zft%2BFK6U7I%2FfWjef2w4Nx%2BVvdATkNRpVEzbkAv1lBWMhfrOLy5koJfGepFk0BGQbTXNokhFCQYxzQuJBeC1xubKHzZSQLCVnTXt4EXA%3D%3D' \
   --header 'Content-Disposition: inline; filename=\"fishpic.jpg\"; filename*=UTF-8'\'''\''fishpic.jpg' \
   --header 'Content-Md5: EA5w4bPQDfzBgEbes8ZmuQ==' \
   --header 'Content-Type:' \
@@ -228,13 +228,13 @@ only due to Bash escaping.  In fact, there are only two single quotes between
 
 === Fish detection
 
-Finally, actual fish recognition may be performed.  There is only one query
+Then actual fish recognition may be performed.  There is only one query
 parameter `q` that is set to `signed-id` returned along with an upload URL.
 
 ----
 curl --request GET \
-  --url 'https://api.fishial.ai/v1/recognition/image?q=eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGkyRVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ%3D%3D--315f7b38584a837d83765664bed60a003f80aed0' \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTUyMjc1MTcsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.mW307Uck5x4mFMyuBY8xmwU4cKuTrum-5_kerod1WLQ'
+  --url 'https://api.fishial.ai/v1/recognition/image?q=eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNVJjRlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ%3D%3D--269b0ee106c8739e2248645965ad0fc868b20c7c' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTY2MTkzNzQsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.SwJITJXPcGXu9E6UYPNXq0kTfPRZ_O-qe3FGV7ZTxZM'
 ----
 
 The response is quite lengthy, and it was redacted for clarity:
@@ -288,3 +288,54 @@ Its structure reads as follows:
 In this case, `results` array contains only one item, and one of the matched
 species has accuracy 1.0.  That means that according to Fishial AI, there's
 only one fish on a picture, and it's a pike (_Esox lucius_), which is correct.
+
+=== Sending a feedback
+
+Finally, a user may wish to send a feedback agreeing with a recognition result:
+
+----
+curl --request POST \
+  --url https://api.fishial.ai/v1/ai-feedbacks/44062/entries \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTY2MTkzNzQsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.SwJITJXPcGXu9E6UYPNXq0kTfPRZ_O-qe3FGV7ZTxZM' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "data":{
+      "type": "ai-feedback-entries",
+      "attributes": {
+        "polygon-id": "0",
+        "feedback-type": "Agree"
+      }
+    }
+  }'
+----
+
+Or disagreeing with it:
+
+----
+curl --request POST \
+  --url https://api.fishial.ai/v1/ai-feedbacks/44062/entries \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTY2MTkzNzQsImtpZCI6ImMwZmFlMTc0ZjI0YzA5NTAzNTJjMmJiZCJ9.SwJITJXPcGXu9E6UYPNXq0kTfPRZ_O-qe3FGV7ZTxZM' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "data":{
+    "type": "ai-feedback-entries",
+    "attributes": {
+      "polygon-id": "0",
+      "feedback-type": "Disagree",
+      "suggested-name": "Sander vitreus"
+    }
+  }
+}'
+----
+
+Where:
+
+- `polygon-id` is an item index in the recognition's `results` array (starting
+  with 0) that this user feedback refers to.  It also may be `null` when
+  a feedback doesn't refer to any specific fish shape in the results list but
+  to an image as whole, e.g. when there's some undetected fish on a picture or
+  a picture doesn't actually show any fish.
+- `feedback-type` is one of `Agree`, `Disagree`, or `Unknown`, and means if
+  a user agreed with recognition result or not.
+- `suggested-name` is a species name suggested by a user (makes sense only for
+  a `Disagree` feedback type).
