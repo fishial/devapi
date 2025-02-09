@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# demo of the Fishial Deveopers API
+# Demo of the Fishial Deveopers API written in Python
 #
 import os
 import sys
