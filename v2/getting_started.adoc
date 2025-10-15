@@ -1,0 +1,162 @@
+= Fishial Recognition Tutorial
+Fishial Recognition V2 API
+
+:toc:
+
+== Introduction
+
+.Esox lucius, https://commons.wikimedia.org/wiki/File:Esox_lucius_Prague_Vltava_2.jpg[Wikimedia Commons], public domain
+image::https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg[]
+
+In this tutorial, we’ll show step-by-step how to perform fish recognition on
+a picture of a northern pike, which can be downloaded from here:
+https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg
+
+[source,sh]
+----
+curl "https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg" -o fishpic.jpg
+----
+
+== Step-by-step tutorial
+
+=== Prerequisites
+
+It is assumed that user has a Developers' API subscription and has generated
+API credentials (API Key Id and API Secret Key).
+
+In this tutorial, following API credentials will be used.
+
+|===
+| API Key ID     | c0fae174f24c0950352c2bbd
+| API Secret Key | 5edac99f92bf7acb66425c47fb153c5f
+|===
+
+To prevent from abuse, the API key shown in this tutorial has been already
+deleted.  Don't use it as it won't work, please use your own instead.
+
+WARNING: Never reveal API Secret Key nor pass it to untrusted devices.
+
+=== Obtaining an access token
+
+A short-living bearer token is needed to authorize most of the requests.
+
+In order to obtain it, send API credentials to
+`https://api-recognition.fishial.ai/v2/auth`, as illustrated in a cURL
+snippet below:
+
+[source,sh]
+----
+curl --request POST \
+  --url https://api-recognition.fishial.ai/v2/auth \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "client_id": "c0fae174f24c0950352c2bbd",
+    "client_secret": "5edac99f92bf7acb66425c47fb153c5f"
+  }'
+----
+
+Mind that this operation is meant to be executed from a privileged machine
+which has access to API Secret Key.
+
+A server response may look like this:
+
+[source,json]
+----
+{
+  "token_type": "Bearer",
+  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y"
+}
+----
+
+It includes a bearer token, which is valid for 10 minutes.  This token is
+supposed to be included in `Authorization` HTTP header in subsequent API calls,
+and may be passed to client devices without compromising API Secret Key.
+
+Given the above token, a header would be:
+
+----
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y
+----
+
+=== Image recognition
+
+Now actual fish recognition can be performed:
+
+[source,sh]
+----
+curl --request POST \
+  --url https://api-recognition.fishial.ai/v2/recognize \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y' \
+  --data-binary @fishpic.jpg
+----
+
+And this is it!  The response contains detection results, in particular
+an outline of fish that have been detected, and a few matched species with
+various certainty rates.
+
+If an API key has some upload folder set, then a recognized image will be also
+added to that folder in Fishial Portal.
+
+==== Customizing recognition
+
+Fishial API supports a variety of options, which affect recognition quality
+or set image metadata upon its upload to a selected Fishial Portal collection.
+These options are set through HTTP headers.
+
+[source,sh]
+----
+curl --request POST \
+  --url https://api-recognition.fishial.ai/v2/recognize \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y' \
+  --header 'Fishial-Fish-Detection-Threshold: 0.9' \
+  --header 'Fishial-Location-Lat-Lon: -55.260, -67.886' \
+  --header 'Fishial-Image-License-Code: None' \
+  --data-binary @fishpic.jpg
+----
+
+A full list of supported options can be found xref:options.adoc[here].
+
+=== Sending a feedback
+
+Finally, a user may send his feedback regarding recognition result.  This is
+expressed as a plain JSON object composed of following attributes:
+
+[%header,cols="0,1,1"]
+|===
+| Attribute
+| Meaning
+| Value
+
+| `queryToken`
+| Extracted from a recognition response.
+| A signed query identifier, textual.
+
+| `objectIndex`
+| Object index (counting from zero) within `results` array that user feedback
+  refers to.  May be null if a feedback refers to image as whole, e.g. in case
+  no fish was found.
+| A non-negative integer number or null.
+
+| `opinion`
+| Whether user agrees with the results or not.
+| `Agree`, `Disagree`, or `Unknown`, case-insensitively.
+
+| `suggestedSpeciesName`
+| In case of _disagree_ feedback, a common or scientific species name that user
+  believes to be the correct one.
+| Any string or null.
+|===
+
+[source,sh]
+----
+curl --request POST \
+  --url https://api-recognition.fishial.ai/v2/comment \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y' \
+  --data '{
+    "queryToken": "eyJfcmFpbHMiOnsiZGF0YSI6Mjg3NDk4LCJleHAiOiIyMDI1LTEwLTIyVDExOjI1OjM4LjYwMFoiLCJwdXIiOiJhaV9mZWVkYmFjay92MiJ9fQ--258ba0b32a3b7bedb56ccb6a5a37f6ec088b3d719455b779d276d2f127fa81be",
+    "opinion": "disagree",
+    "objectIndex": 1,
+    "suggestedSpeciesName": "Esox lucius"
+  }'
+----

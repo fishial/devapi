@@ -1,0 +1,93 @@
+= Supported Recognition Options
+Fishial Recognition V2 API
+
+:toc:
+
+== Caveats
+
+=== Allowed characters
+
+Only characters that are well-suited for HTTP header values should be used.
+As a rule of thumb, everything but ASCII alphanumeric characters, a space
+character, and basic punctuation characters should be avoided.  Do not use
+diacritics, CJK scripts, Emoji, line breaks, etc. in this API, even though
+Unicode is widely supported in the Fishial Portal.
+
+This limitation may be addressed in some future API version.
+
+== Options for detection quality
+
+These options influence recognition results.
+
+`*Fishial-Fish-Detection-Threshold*`::
+
+A decimal number ranging from 0.3 to 1.0.  The smaller value, the more fish
+shapes are detected, but also false positives are more likely.
+
+`*Fishial-Fish-Shape-Max-Points*`::
+
+A maximum allowed number of points in every detected fish shape.  Larger values
+give better quality of fish outlines.  On the other hand, there are situations
+in which simper shapes are more desired.
+
+== Options for Fishial Portal collections
+
+NOTE: These options make sense only if given image is supposed to be uploaded
+to one of the Fishial Portal collections after recognition.
+
+=== Options for privacy
+
+`*Fishial-Face-Obfuscation*`::
+
+Whether to obfuscate (blur) human faces or not.  Usually desired, however may
+partly blur a fish, too, if a face and a fish are too close to each other.
+
+=== Options for image copyrights
+
+These options describe licensing details for images.
+
+`*Fishial-Image-License-Code*`::
+
+A license code.  Supported values are: `None`, `Unknown`, `Custom`
+(self-describing), and some of the SPDX codes: `CC0-1.0`, `CC-BY-4.0`,
+`CC-BY-NC-4.0`, `CC-BY-NC-ND-4.0`, `CC-BY-NC-SA-4.0`, `CC-BY-ND-4.0`,
+`CC-BY-SA-4.0`.
+
+`*Fishial-Image-License-Url*`::
+
+A URL that points to a license text.  Makes sense with `Custom` license.
+
+`*Fishial-Image-License-Author*`::
+
+An image author.
+
+`*Fishial-Image-License-Source*`::
+
+A URL or a textual information that indicates where given image has been
+obtained from.
+
+`*Fishial-Image-License-Notice*`::
+
+A text with additional copyright information.
+
+=== Additional options
+
+`*Fishial-Image-Tags*`::
+
+A comma-separated list of tags which will be assigned to an image.
++
+Examples:
+
+    * `wow a tag` -- a single "wow a tag" tag
+    * `wow,a,tag` -- three tags: "wow", "a", "tag"
+
+`*Fishial-Location-Lat-Lon*`::
+
+A location where a fish has been observed.  Most often it is a location where
+a photo has been taken, or a fish has been caught.  It is composed of
+two numbers, a latitude followed by a longitude, both in decimal degrees.
++
+Example:
+
+    * `-55.260, -67.886` -- 55.260 S, 67.886 W, which roughly translates to
+      55° 16' S, 67° 53' W, somewhere at _Tierra del Fuego_ archipelago.
