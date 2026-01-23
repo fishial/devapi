@@ -1,4 +1,4 @@
-== AI Feedback Guide
+== AI Feedback Guide (Protocal V1)
 
 A brief guide to the API usage for AI feedback.
 
