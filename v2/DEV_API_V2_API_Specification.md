@@ -85,6 +85,8 @@ The driver must sanitize all headers to ensure they are strictly **ASCII (7-bit)
     }
   ]
 }
+```
+---
 
 ## 4. Resource: User Feedback (The "Loop")
 
