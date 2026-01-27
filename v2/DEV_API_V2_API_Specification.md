@@ -67,6 +67,7 @@ The driver must sanitize all headers to ensure they are strictly **ASCII (7-bit)
 | `Fishial-Location-Lat-Lon` | String | `Lat, Lon` | Decimal degrees. e.g., `-55.2, -67.8`. |
 | `Fishial-Image-Tags` | String | ASCII Only | Comma-separated metadata. |
 | `Fishial-Image-License-Code` | String | Enum | `CC-BY-4.0`, `CC0-1.0`, etc. |
+| `Fishial-Debug:` |String |`On`| additional metadata|
 
 ### **3.4 Response Schema (JSON)**
 ```json
