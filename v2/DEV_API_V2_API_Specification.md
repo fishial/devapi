@@ -36,7 +36,7 @@ The API uses **OAuth2 Client Credentials** flow. The driver **MUST** manage the 
 ### **2.2 Token Lifecycle Management (Driver Requirement)**
 The driver **MUST** implement the following logic:
 1.  **Storage:** Store the `access_token` and `expires_in` timestamp in memory.
-2.  **Pre-emptive Refresh:** Schedule a refresh 60 seconds *before* the token expires.
+2.  **Pre-emptive Refresh:** Schedule a refresh 10 minutes *before* the token expires.
 3.  **Reactive Refresh (401 Retry):** If any API call returns `401 Unauthorized`:
     * Immediately attempt to fetch a new token.
     * If successful, replay the original failed request with the new token.
