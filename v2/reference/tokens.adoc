@@ -1,0 +1,81 @@
+---
+title: Token retrieval
+parent: Reference
+nav_order: 10
+
+synopsis:
+  method: POST
+  path: /v2/auth
+  credits: 0
+  authorization: API Key credentials given in request body (see below)
+  request_body: a JSON message
+---
+
+:page-liquid:
+
+== Synopsis
+
+Obtains a short-living bearer token is needed to authorize most requests.
+
+{% include synopsis_table.adoc %}
+
+== Request Body
+
+.Schema
+[source,json]
+----
+{
+  "client_id": <string (required)>,
+  "client_secret": <string (required for some API keys)>
+}
+----
+
+For client keys, both `client_id` and `client_secret` are required.
+For widget keys, only `client_id` is needed.
+
+== Successful Response Body
+
+.Schema
+[source,json]
+----
+{
+  "token_type": "Bearer",
+  "access_token": <string>
+}
+----
+
+A JSON object which has `token_type` member equal to `"Bearer"`, and a fresh
+token in `access_token`.
+
+== Caveats and Notes
+
+=== Bearer token expirity
+
+It expires after ca. 10 minutes.
+
+=== Client Keys vs Widget Keys
+
+TODO
+
+== Example
+
+[source,sh]
+----
+curl --request POST \
+  --url https://api-recognition.fishial.ai/v2/auth \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "client_id": "c0fae174f24c0950352c2bbd",
+    "client_secret": "5edac99f92bf7acb66425c47fb153c5f"
+  }'
+----
+
+Could produce a response:
+
+[source,json]
+----
+{
+  "token_type": "Bearer",
+  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y"
+}
+----

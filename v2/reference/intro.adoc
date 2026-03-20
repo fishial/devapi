@@ -1,0 +1,9 @@
+---
+title: Introduction
+parent: Reference
+nav_order: 0
+---
+
+== Conventions
+
+This API relies on JSON messages.

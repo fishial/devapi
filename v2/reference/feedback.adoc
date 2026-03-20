@@ -1,0 +1,77 @@
+---
+title: User Feedback
+parent: Reference
+nav_order: 12
+
+synopsis:
+  method: POST
+  path: /v2/feedback
+  credits: 0
+  authorization:
+    a bearer token in `Authorization` HTTP header _and_ a query token in
+    a request body (see below)
+  request_body: a JSON message
+---
+
+:page-liquid:
+
+== Synopsis
+
+Adds a user feedback (opinion) on recognition results correctness.
+
+{% include synopsis_table.adoc %}
+
+== Request Body
+
+.Schema
+[lang,json]
+----
+{
+  "queryToken": <string (required)>,
+  "objectIndex": <non-negative integer or null (required even if null)>,
+  "opinion": <string (required)>,
+  "suggestedSpeciesName": <string>,
+  "suggestedSpeciesID": <UUID as string>
+}
+----
+
+An `opinion` indicates if user agrees with, disagrees with, or is unsure of
+recognition results.  The allowed values are `"Agree"`, `"Disagree"`, and
+`"Unsure"`.
+
+In case of a disagree opinion, a correct species may be suggested by a user.
+This species may be given either by its name (`suggestedSpeciesName`
+property), or by its ID (`suggestedSpeciesID`). Currently, Fishial Recognition
+API does not expose its catalog of species, however if a recognition response
+lists more than one matched species, then their IDs may be used.
+
+An `objectIndex` indicates which specific detected object the user opinion
+refers to.  It needs to be set to that object's position in objects array,
+in a recognition result, counting from zero.  For example, if a recognition
+result contains two detected fish objects, then `objectIndex = 0` would refer to
+the first object, whereas `objectIndex = 1` to the second one.
+
+Moreover, an opinion may refer to a result as whole, rather than to any specific
+detected object.  This is particularily useful if a fish has not been found
+at all.  In order to refer to a result as whole, `objectIndex` property
+needs to be set to `null`.
+
+A `queryToken` is obtained from image recognition result, and serves for
+authentication purposes.  Mind that Authorize HTTP header is still required.
+
+== Successful Response Body
+
+.Schema
+[lang,json]
+----
+{
+  "ok": true
+}
+----
+
+== Caveats and Notes
+
+=== Multiple opinions
+
+Submitting multiple feedback (opinions) on a single recognition results
+is explicitly allowed.

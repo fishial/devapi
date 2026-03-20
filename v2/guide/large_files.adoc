@@ -1,0 +1,31 @@
+---
+title: Dealing With Large Files
+parent: Guide
+nav_order: 5
+---
+
+The API imposes hard limit on maximum size of a file being recognized.
+There are several approaches to deal with files larger than that.
+
+== Downscaling
+
+This one seems the simplest: just scale a given image down.  A smaller number of
+pixels should result with a smaller file, unless it is a vector graphics.
+Just remember that you will get results for a scaled file, not an original one!
+
+== Changing file format
+
+Picking a suitable file format is important.  PNG is a poor choice for photos.
+TIFF files are often quite large.  JPEG is suitable in most cases, but switching
+to its modern alternatives like WebP, JPEG-XL or AVIF may reduce file size
+several times.
+
+== Lossy compression
+
+Reducing JPEG quality setting may help a lot.
+
+== Other resources
+
+- https://regex.info/blog/lightroom-goodies/jpeg-quality[An Analysis of Lightroom JPEG Export Quality Settings] (case-by-case comparison)
+- https://www.lenspiration.com/2020/07/what-quality-setting-should-i-use-for-jpg-photos/[What Quality Setting Should I Use for JPG Photos?] (blog post)
+- https://dev.to/feldroy/til-strategies-for-compressing-jpg-files-with-imagemagick-5fn9[The Best Way to Compress JPG Files with ImageMagick] (blog post)

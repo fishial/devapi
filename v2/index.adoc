@@ -1,2 +1,21 @@
-TODO
+---
+title: Start
+nav_order: 0
+---
 
+This is the main documentation site for Fishial Recognition API, version 2.
+
+On this site:
+
+- xref:guide/tutorial.adoc[Getting Started Guide]
+- xref:reference/index.adoc[API Reference]
+- xref:guide/recognize_fish_bash.adoc[Example API Client] (Bash)
+
+Other resources:
+
+- https://api-recognition.fishial.ai/api-docs[Live Documentation] (OpenAPI f.k.a. Swagger)
+- https://portal.fishial.ai/[Fishial Portal]
+
+Old API versions:
+
+- https://github.com/fishial/devapi/tree/v1/v1[Version 1] (deprecated, will be phased out soon)

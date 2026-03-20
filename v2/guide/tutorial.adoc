@@ -1,15 +1,16 @@
-= Fishial Recognition Tutorial
-Fishial Recognition V2 API
-
-:toc:
+---
+title: Getting Started
+parent: Guide
+nav_order: 1
+---
 
 == Introduction
 
 .Esox lucius, https://commons.wikimedia.org/wiki/File:Esox_lucius_Prague_Vltava_2.jpg[Wikimedia Commons], public domain
 image::https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg[]
 
-In this tutorial, we’ll show step-by-step how to perform fish recognition on
-a picture of a northern pike, which can be downloaded from here:
+This step-by-step tutorial shows how to perform fish recognition on a picture of
+a northern pike, which can be downloaded from here:
 https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg
 
 [source,sh]
@@ -17,31 +18,31 @@ https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg
 curl "https://raw.githubusercontent.com/fishial/devapi/main/fishpic.jpg" -o fishpic.jpg
 ----
 
-== Step-by-step tutorial
+== Prerequisites
 
-=== Prerequisites
+It is assumed that a user has an active Developers' API subscription, and has
+generated API credentials (API Key Id and API Secret Key).
 
-It is assumed that user has a Developers' API subscription and has generated
-API credentials (API Key Id and API Secret Key).
+In this tutorial, the following API credentials will be used.
 
-In this tutorial, following API credentials will be used.
-
+[%noheader]
 |===
 | API Key ID     | c0fae174f24c0950352c2bbd
 | API Secret Key | 5edac99f92bf7acb66425c47fb153c5f
 |===
 
-To prevent from abuse, the API key shown in this tutorial has been already
+To prevent from abuse, the API key used in this tutorial has been already
 deleted.  Don't use it as it won't work, please use your own instead.
 
-WARNING: Never reveal API Secret Key nor pass it to untrusted devices.
+WARNING: Never reveal API Secret Key to anyone neither pass it to untrusted
+devices.
 
-=== Obtaining an access token
+== Obtaining an access token
 
 A short-living bearer token is needed to authorize most of the requests.
 
 In order to obtain it, send API credentials to
-`https://api-recognition.fishial.ai/v2/auth`, as illustrated in a cURL
+`api-recognition.fishial.ai/v2/auth`, as illustrated in a cURL
 snippet below:
 
 [source,sh]
@@ -74,11 +75,12 @@ and may be passed to client devices without compromising API Secret Key.
 
 Given the above token, a header would be:
 
+[source]
 ----
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdXN0Ijoia2lkZGluZyJ9.Wp2EkrHpdPc9qiKscvYL_K2jN6uUPn_7F_Lt0XYuh1Y
 ----
 
-=== Image recognition
+== Image recognition
 
 Now actual fish recognition can be performed:
 
@@ -92,16 +94,20 @@ curl --request POST \
 
 And this is it!  The response contains detection results, in particular
 an outline of fish that have been detected, and a few matched species with
-various certainty rates.
+their certainty rates.
 
 If an API key has some upload folder set, then a recognized image will be also
 added to that folder in Fishial Portal.
 
-==== Customizing recognition
+=== Customizing recognition
 
 Fishial API supports a variety of options, which affect recognition quality
 or set image metadata upon its upload to a selected Fishial Portal collection.
 These options are set through HTTP headers.
+
+For example, to set fish detection threshold to 0.9, and to provide a specific
+location where a fish has been observed, and set "None" licence on a file
+which is uploaded to the Fishial Portal, one can execute the following:
 
 [source,sh]
 ----
@@ -114,9 +120,10 @@ curl --request POST \
   --data-binary @fishpic.jpg
 ----
 
-A full list of supported options can be found xref:options.adoc[here].
+A full list of supported options can be found
+xref:../reference/recognition_options.adoc[here].
 
-=== Sending a feedback
+== Sending a feedback
 
 Finally, a user may send his feedback regarding recognition result.  This is
 expressed as a plain JSON object composed of following attributes:
@@ -156,7 +163,7 @@ curl --request POST \
   --data '{
     "queryToken": "eyJfcmFpbHMiOnsiZGF0YSI6Mjg3NDk4LCJleHAiOiIyMDI1LTEwLTIyVDExOjI1OjM4LjYwMFoiLCJwdXIiOiJhaV9mZWVkYmFjay92MiJ9fQ--258ba0b32a3b7bedb56ccb6a5a37f6ec088b3d719455b779d276d2f127fa81be",
     "opinion": "disagree",
-    "objectIndex": 1,
+    "objectIndex": 0,
     "suggestedSpeciesName": "Esox lucius"
   }'
 ----

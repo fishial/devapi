@@ -1,0 +1,73 @@
+---
+title: Error responses
+parent: Reference
+---
+
+Unless stated otherwise, error responses are formatted as follows:
+
+.Schema
+[lang,json]
+----
+{
+  "ok": false,
+  "error": <string>,
+  "message": <string>
+}
+----
+
+There is a notable difference between response's error and message members:
+
+- `error` denotes error type from a limited set. It is programmer-friendly, suitable for use in control flow constructs, or as a lookup key in applications' i18n, etc.
+- `message` contains a human-readable error message in English.  It may be displayed to user directly, however its content may vary even for similar errors.  Do not depend on its value too much.
+
+CAUTION: Whilst we do our best to keep all error responses consistent, some
+of them may fail to adhere to this format, or perhaps not even formatted as
+valid JSONs.  This is particularily relevant to server errors, i.e. ones with
+HTTP 5xx status code.
+
+== Error codes
+
+Following error codes are used in error responses.
+
+=== General errors
+
+[%header,cols="1,3d"]
+|====
+| Code
+| Description
+
+| auth_token_expired
+| A bearer token has expired.  A new one is required.
+
+| auth_token_invalid
+| A bearer token is invalid for some unspecified reason.
+
+| credits_insufficient
+| Not enough API credits left to complete this request.
+|====
+
+=== Recognition-related errors
+
+[%header,cols="1,3d"]
+|====
+| Code
+| Description
+
+| unsupported_file_format
+| This image file format is unsupported.  Use a different file.
+  See the documentation for supported file formats.
+|====
+
+=== Feedback-related errors
+
+[%header,cols="1,3d"]
+|====
+| Code
+| Description
+
+| feedback_invalid
+| Validation error on feedback submission.  Error message may reveal more information.
+
+| query_token_invalid
+| Query token has expired or was invalid.
+|====

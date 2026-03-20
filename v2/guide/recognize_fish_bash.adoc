@@ -1,0 +1,17 @@
+---
+title: Example Program
+parent: Guide
+nav_order: 11
+---
+
+// Enable Liquid filters just to get a nice download URL.
+:page-liquid:
+
+This Bash program detects fish on images using Fishial Recognition API.
+
+link:{{ "recognize_fish.bash" | absolute_url }}[Download^]
+
+[source,bash]
+----
+include::recognize_fish.bash[]
+----

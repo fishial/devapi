@@ -1,3 +1,8 @@
+---
+title: Image Recognition Options
+parent: Image Recognition
+---
+
 = Supported Recognition Options
 Fishial Recognition V2 API
 
@@ -19,12 +24,12 @@ This limitation may be addressed in some future API version.
 
 These options influence recognition results.
 
-`*Fishial-Fish-Detection-Threshold*`::
+`Fishial-Fish-Detection-Threshold`::
 
 A decimal number ranging from 0.3 to 1.0.  The smaller value, the more fish
 shapes are detected, but also false positives are more likely.
 
-`*Fishial-Fish-Shape-Max-Points*`::
+`Fishial-Fish-Shape-Max-Points`::
 
 A maximum allowed number of points in every detected fish shape.  Larger values
 give better quality of fish outlines.  On the other hand, there are situations
@@ -37,7 +42,7 @@ to one of the Fishial Portal collections after recognition.
 
 === Options for privacy
 
-`*Fishial-Face-Obfuscation*`::
+`Fishial-Face-Obfuscation`::
 
 Whether to obfuscate (blur) human faces or not.  Usually desired, however may
 partly blur a fish, too, if a face and a fish are too close to each other.
@@ -46,33 +51,33 @@ partly blur a fish, too, if a face and a fish are too close to each other.
 
 These options describe licensing details for images.
 
-`*Fishial-Image-License-Code*`::
+`Fishial-Image-License-Code`::
 
 A license code.  Supported values are: `None`, `Unknown`, `Custom`
 (self-describing), and some of the SPDX codes: `CC0-1.0`, `CC-BY-4.0`,
 `CC-BY-NC-4.0`, `CC-BY-NC-ND-4.0`, `CC-BY-NC-SA-4.0`, `CC-BY-ND-4.0`,
 `CC-BY-SA-4.0`.
 
-`*Fishial-Image-License-Url*`::
+`Fishial-Image-License-Url`::
 
 A URL that points to a license text.  Makes sense with `Custom` license.
 
-`*Fishial-Image-License-Author*`::
+`Fishial-Image-License-Author`::
 
 An image author.
 
-`*Fishial-Image-License-Source*`::
+`Fishial-Image-License-Source`::
 
 A URL or a textual information that indicates where given image has been
 obtained from.
 
-`*Fishial-Image-License-Notice*`::
+`Fishial-Image-License-Notice`::
 
 A text with additional copyright information.
 
 === Additional options
 
-`*Fishial-Image-Tags*`::
+`Fishial-Image-Tags`::
 
 A comma-separated list of tags which will be assigned to an image.
 +
@@ -81,7 +86,7 @@ Examples:
     * `wow a tag` -- a single "wow a tag" tag
     * `wow,a,tag` -- three tags: "wow", "a", "tag"
 
-`*Fishial-Location-Lat-Lon*`::
+`Fishial-Location-Lat-Lon`::
 
 A location where a fish has been observed.  Most often it is a location where
 a photo has been taken, or a fish has been caught.  It is composed of

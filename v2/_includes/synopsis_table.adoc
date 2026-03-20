@@ -1,0 +1,17 @@
+[%noheader,cols="h,3d"]
+|====
+| HTTP Method
+| {{ page.synopsis.method }}
+
+| Action Path
+| `{{ page.synopsis.path }}`
+
+| Authorization
+| {{ page.synopsis.authorization }}
+
+| Request Body
+| {{ page.synopsis.request_body }}
+
+| Credits Cost
+| {{ page.synopsis.credits }}
+|====

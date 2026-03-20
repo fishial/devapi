@@ -1,0 +1,106 @@
+---
+title: Image Recognition
+parent: Reference
+nav_order: 11
+
+synopsis:
+  method: POST
+  path: /v2/recognize
+  credits: 1
+  authorization: a bearer token in `Authorization` HTTP header
+  request_body: binary data (not multipart form data!)
+---
+
+:page-liquid:
+
+== Synopsis
+
+Scans a given image for fish.
+
+{% include synopsis_table.adoc %}
+
+== Request Body
+
+A request body should be binary data (a sequence of octets) which represents
+image about to be recognized.  Do not wrap this data in a multipart form.
+
+Popular image file formats are supported, including but not limited to:
+
+- raster graphics: AVIF, GIF, HEIC, HEIF, JPEG, JPEG 2000, JPEG XL, PNG, TIFF,
+WebP
+- vector graphics: SVG
+
+Notably, BMP (Windows Bitmap) files are not supported.
+
+Image MIME type (e.g. `image/jpeg`) may be given through `Content-Type`
+HTTP header, but `application/octet-stream` will do equally well.
+
+Maximum request body size is 20 MB.
+
+== Recognition Options
+
+A variety of recognition options is supported via request headers.
+See <<recognition_options#>>.
+
+== Successful Response Body
+
+.Schema
+[lang,json]
+----
+{
+  "ok": true,
+  "queryToken": <string>,
+  "objects": [
+    {
+      "shape": <array of numbers, even number of elements>,
+      "bbox": <array of numbers, exactly four elements>,
+      "species": [
+        {
+          "id": <UUID as a string>,
+          "certainty": <a number between 0.0 and 1.0>
+        },
+        ...
+      ]
+    },
+    ...
+  ],
+  "definitions": {
+    <UUID as a string>: {
+      "commonName": <string>,
+      "scientificName": <string>,
+      "imageUrl": <string>
+    },
+    ...
+  }
+}
+----
+
+An `objects` array lists fish shapes which have been detected on a picture.
+Each item in this array contains a `bbox`, a `shape`, and a `species`
+list.
+
+An object's `shape` is a list array of coordinates which define a fish outline
+polygon.  Coordinates are listed in a following order: `x1`, `y1`, `x2`, `y2`,
+`x3`, `y3`, etc.  For example, given array `[1.0, 2.0, 3.0, 4.0, 10.0, 20.0]`
+denotes a polygon composed of three points: `(1.0, 2.0)`, `(3.0, 4.0)`,
+and `(10.0, 20.0)`.  Mind that these coordinates are represented as
+floating-point number, and are not necessarily integer numbers.  This is up to
+you whether to round them or not.
+
+An object's `bbox` describes a bounding box of a fish shape.  It consists of
+four coordinates, `x1`, `y1`, `x2`, `y2`, and defines two opposite corners
+of a bounding box, `(x1, y1)` and `(x2, y2)`.  These coordinates are always
+integer numbers.
+
+An object's `species` lists zero to few species which have been matched for
+an object.  Each item contains `id` and `certainty` which denote a species
+identifier and certainty level of a match, respectively.
+
+A `definitions` dictionary translates species IDs to their definitions.
+A species definition includes `commonName`, which is a species common name
+in English, `scientificName`, which is a species binomial (scientific) name
+in Latin, and `imageUrl`, which is a valid URL pointing to some informative
+picture of that species.
+
+Finally, `queryToken` is a token required to submit a user feedback on
+recognition results.
