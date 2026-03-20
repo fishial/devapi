@@ -1,0 +1,19 @@
+/**
+  * AsciiDoc renders very different admonitions than the theme expects.
+  * This is somewhat a replication of what can be found here:
+  * https://just-the-docs.github.io/just-the-docs/docs/ui-components/callouts/
+  */
+.main-content .admonitionblock {
+    table {
+        border: 1px solid;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+    td.icon {
+        // TODO: Some colors maybe!
+        color: black;
+        text-transform: uppercase;
+        font-size: 0.75em;
+        font-weight: bold;
+    }
+}
