@@ -17,3 +17,18 @@
         font-weight: bold;
     }
 }
+
+/**
+  * Definition lists in Just The Docs theme are ugly and impractical!
+  * Changing that is a must-have!
+  */
+.main-content dl {
+    display: block !important;
+}
+.main-content dt {
+    text-align: left !important;
+
+    &::after {
+        content: normal !important;
+    }
+}
