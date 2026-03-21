@@ -32,3 +32,14 @@
         content: normal !important;
     }
 }
+
+.main-content .synopsis-table {
+    th, td {
+        padding: 0.1rem 1rem;
+        vertical-align: top;
+    }
+
+    th {
+        text-align: right;
+    }
+}

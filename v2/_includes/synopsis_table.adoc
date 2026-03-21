@@ -1,4 +1,4 @@
-[%noheader,cols="h,3d"]
+[.synopsis-table,%noheader,cols="h,3d"]
 |====
 | HTTP Method
 | {{ page.synopsis.method }}
