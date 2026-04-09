@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DEPENDENCIES=( bc curl jq seq )
+DEPENDENCIES=( bc curl jq seq sha512sum )
 
 print_help()
 {
@@ -134,6 +134,16 @@ for dep in ${DEPENDENCIES[*]}; do
   fi
 done
 
+#### CALCULATE IMAGE CHECKSUM ####
+
+echo "Calculating image checksum..."
+echo
+
+CHECKSUM=$(sha512sum "$PICTURE" | cut -f1 -d' ')
+
+echo "Image SHA-512: ${CHECKSUM}"
+echo
+
 #### OBTAIN TOKEN ####
 
 echo "Obtaining authorization token..."
@@ -178,6 +188,7 @@ curl --request POST \
   --url "https://api-recognition.fishial.ai/v2/recognize" \
   --header "$AUTH" \
   --header "Content-Type: application/octet-stream" \
+  --header "Fishial-Image-SHA-512: ${CHECKSUM}" \
   --data-binary "@${PICTURE}"
 )
 
